@@ -141,3 +141,7 @@ The Unity engine-related APIs are placed in the engine.py module
 |get_component_methods|Gets a list of method in a component|
 |call_component_method|Gets a component's method to call a method on a component|
 
+
+### How to get the fullpath of a game object
+
+APIs like 'find_element' require a full path of an object.There is a tool that will help you get the full path of the clickable components in the current screen from a game that already has an SDK integration.Please refer to the tool —— [GAutomatorView](https://github.com/qintianchen/GAutomatorView).

@@ -4,13 +4,13 @@
 
 GAutomator中Android部分的脚本的简化版本，删除了对云平台的支持，删除了对python2.7的兼容，修改了部分接口。
 
-### Download and Install
+### 下载安装
 
 ```shell script
 pip install gauto-android
 ```
 
-### the simplest usage
+### 最简单的使用
 
 ```python
 import os
@@ -138,4 +138,8 @@ The Unity engine-related APIs are placed in the engine.py module
 |call_registered_handler|调用一个sdk中注册的方法|
 |get_component_methods|获取一个组件的方法|
 |call_component_method|调用一个组件上的方法|
+
+### 如何获取游戏控件全路径
+
+诸如`find_element`这样的API需要你传入一个物体的全路径。有一个工具可以帮助你，从一个已经装有sdk的游戏中，获取当前画面里可点击的组件的全路径。请参考[GAutomatorView](https://github.com/qintianchen/GAutomatorView)。
 
