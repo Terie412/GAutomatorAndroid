@@ -13,7 +13,7 @@ import threading
 import logging
 from gauto.common.wetest_exceptions import *
 
-logger = logging.getLogger("wetest")
+logger = logging.getLogger("gauto")
 
 ResponseStatus = {
     0 : ["SUCCESS", "成功"],

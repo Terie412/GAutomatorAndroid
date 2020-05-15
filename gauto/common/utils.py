@@ -14,7 +14,7 @@ import time
 import threading
 import logging
 
-logger = logging.getLogger("wetest")
+logger = logging.getLogger("gauto")
 
 
 def screensnap_thread(report, stop, times, interval):

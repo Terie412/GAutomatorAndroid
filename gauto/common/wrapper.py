@@ -6,7 +6,7 @@ from gauto import manager
 
 device = manager.get_device()
 engine = manager.get_engine()
-logger = logging.getLogger("wetest")
+logger = logging.getLogger("gauto")
 
 def launch_game_and_catch_exception(is_relunch):
     def old_wrapper(func):

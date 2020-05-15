@@ -17,7 +17,7 @@ import os
 from gauto.common.adb_process import *
 from gauto.manager import time_snap
 
-logger = logging.getLogger("wetest")
+logger = logging.getLogger("gauto")
 uiauto = m.get_uiautomator()
 
 def __click_by_step__(obj, step, number):

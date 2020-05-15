@@ -9,7 +9,7 @@ from gauto.common.socket_client import SocketClient
 from gauto.common.rpc_thread import RPCReceiveThread
 from gauto.common.wetest_exceptions import *
 
-logger = logging.getLogger("wetest")
+logger = logging.getLogger("gauto")
 
 unity_sdk_port = "27019"
 

@@ -7,6 +7,7 @@ from gauto.wetest.engine import *
 
 device = None
 engine = None
+logger = logging.getLogger("gauto")
 
 def forward():
     local_port = os.environ.get("GA_LOCAL_PORT", "53001")

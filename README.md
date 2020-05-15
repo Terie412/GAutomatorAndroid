@@ -1,15 +1,17 @@
 # GAutomatorAndroid
 [![0.1.2](https://img.shields.io/badge/version-v3.9.5-blue)](https://pypi.org/manage/project/gauto-android/releases/)
 
+A simplified version of the Android part script in GAutomator, removing support for the wetest cloud platform, removing compatibility with python2.7, and modifying some APIs.
+
 GAutomator中Android部分的脚本的简化版本，删除了对云平台的支持，删除了对python2.7的兼容，修改了部分接口。
 
-### 下载安装
+### Download and Install
 
 ```shell script
 pip install gauto-android
 ```
 
-### 最简单的使用
+### the simplest usage
 
 ```python
 import os
@@ -17,7 +19,7 @@ import gauto.manager as manager
 
 device = manager.get_device()
 engine = manager.get_engine()
-logger = logging.getLogger("wetest") # 全局默认的logger名称都是wetest
+logger = logging.getLogger("gauto") # 全局默认的logger名称都是wetest
 
 def init():
     os.environ["FORWARD_LOCAL_PORT"] = "53001" # 本地端口，一台安卓设备分配一个
@@ -43,7 +45,7 @@ def run():
 run()
 ```
 
-### 另一种启动方式——命令行传参
+### Another
 
 ```python
 import getopt

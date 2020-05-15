@@ -17,7 +17,7 @@ import atexit
 from gauto.libs.uiauto import AutomatorDevice
 from gauto.common.adb_process import *
 
-logger=logging.getLogger("wetest")
+logger=logging.getLogger("gauto")
 
 _device_port=9008
 _uiautomator_port = os.environ.get("UIAUTOMATOR_PORT","19008")

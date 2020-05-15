@@ -4,7 +4,7 @@ import subprocess
 import time
 import re
 from .utils import retry_if_fail
-logger=logging.getLogger("wetest")
+logger=logging.getLogger("gauto")
 
 
 def excute_adb(cmd, serial=None):

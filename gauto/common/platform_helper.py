@@ -14,7 +14,7 @@ import logging
 from gauto.httptools.remote_connection import RemoteConnection, Method
 from gauto.common.wetest_exceptions import WeTestPlatormError,WeTestInvaildArg
 
-logger = logging.getLogger("wetest")
+logger = logging.getLogger("gauto")
 
 
 class Command(object):

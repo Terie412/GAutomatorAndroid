@@ -16,7 +16,7 @@ from gauto.uiautomator.uiautomator_manager import *
 from gauto.common.wetest_exceptions import *
 from gauto.uiautomator.login_getter import *
 
-logger = logging.getLogger("wetest")
+logger = logging.getLogger("gauto")
 
 
 class AccountHandler(object):

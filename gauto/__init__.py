@@ -20,7 +20,7 @@ def init_logger():
     formatter = logging.Formatter(fmt)  # 实例化formatter
     handler = logging.StreamHandler()
     handler.setFormatter(formatter)  # 为handler添加formatter
-    logger = logging.getLogger("wetest")  # 获取名为wetest的logger
+    logger = logging.getLogger("gauto")  # 获取名为wetest的logger
     logger.addHandler(handler)  # 为logger添加handler
     logger.setLevel(logging.DEBUG)
 

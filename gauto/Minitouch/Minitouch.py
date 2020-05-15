@@ -15,7 +15,7 @@ if six.PY2:
 elif six.PY3:
     from queue import Queue
 import socket
-logger = logging.getLogger("wetest")
+logger = logging.getLogger("gauto")
 
 SNAP_SHOT_MODE = '\001'
 MAX_TRIES = 3
