@@ -1,9 +1,10 @@
 # GAutomatorAndroid
-[![0.1.2](https://img.shields.io/badge/version-v3.9.5-blue)](https://pypi.org/manage/project/gauto-android/releases/)
+![PyPI - Downloads](https://img.shields.io/badge/qintianchen-gauto--android-orange)
+[![0.1.2](https://img.shields.io/badge/version-v3.9.5-blue)](https://pypi.org/manage/project/gauto-android/releases/) 
 
-A simplified version of the Android part script in GAutomator, removing support for the wetest cloud platform, removing compatibility with python2.7, and modifying some APIs.
+[中文文档](./README_cn.md)
 
-GAutomator中Android部分的脚本的简化版本，删除了对云平台的支持，删除了对python2.7的兼容，修改了部分接口。
+A simplified version of the Android script in GAutomator, removing support for the cloud platform, removing compatibility with python2.7, and modifying some interfaces.
 
 ### Download and Install
 
@@ -19,33 +20,33 @@ import gauto.manager as manager
 
 device = manager.get_device()
 engine = manager.get_engine()
-logger = logging.getLogger("gauto") # 全局默认的logger名称都是wetest
+logger = logging.getLogger("gauto") # The global default logger name is "gauto"
 
 def init():
-    os.environ["FORWARD_LOCAL_PORT"] = "53001" # 本地端口，一台安卓设备分配一个
-    os.environ["ANDROID_SERIAL"] = "emulator-5554" # 安卓设备序列号
-    os.environ["PKGNAME"] = "com.tencent.sgame" # 游戏包名
-    os.environ["LAUNCHACTIVITY"] = "com.tencent.sgame.MainActivity" # 游戏主Activity
+    os.environ["FORWARD_LOCAL_PORT"] = "53001" # Local port, one for each android device
+    os.environ["ANDROID_SERIAL"] = "emulator-5554" # Android device serial number
+    os.environ["PKGNAME"] = "com.tencent.sgame" # Package name
+    os.environ["LAUNCHACTIVITY"] = "com.tencent.sgame.MainActivity" # Main Activity
 
 def run():
-    logger.info("启动 app")
+    logger.info("Launch app")
     device.launch_app()
     time.sleep(2)
 
-    logger.info("点击关闭按钮")
+    logger.info("Click the button named Button.close")
     e = engine.find_element("/Canvas/Button.close")
     engine.click(e)
 
-    logger.info("截图")
+    logger.info("screenshot")
     device.mini_screencap("./screenshot.png")
 
-    logger.info("杀死 app")
+    logger.info("Kill app")
     device.kill_app()
 
 run()
 ```
 
-### Another
+### Another way to start your script —— Read the arguments from the command line
 
 ```python
 import getopt
@@ -86,57 +87,57 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-
 ```
 
-在上面的入口脚本中，你的逻辑可以写在`run()`里面，在此之前，脚本从启动参数列表中读取参数初始化一些环境变量。原因很简单，因为modules中使用到了一些全局的环境变量，如果你不设置所必需的全局变量，就会可能会出错。然后用以下命令启动：
+In the entry script above, your can code your automation logic in 'run()'. Before that, the script takes arguments from the command line and initializes some environment variables.The reason is simple, for some global environment variables are used in gauto-android package, and if you don't set the required global variables, you might get some exceptions.You can then launch it with the following command:
+
 ```shell script
 python main.py --serial=emular-5554 --localport=53001 --package=com.tencent.sgame --mainactivity=com.tencent.sgame.MainActivity
 ```
-脚本的参数说明如下：
+The parameters of the script are described as follows:
 
-|参数|参数缩写|说明|
+|param|param abbreviation|description|
 |------|------|------|
-|--localport|-e|建立adb forward转发时的本地端口|
-|--serial|-s|设备序列号|
-|--package|-k|游戏的包名|
-|--mainactivity|-j|游戏的主Activity，可以问客户端程序拿到|
+|--localport|-e|Establish a local port for adb forwarding|
+|--serial|-s|Device serial number|
+|--package|-k|Package name|
+|--mainactivity|-j|Main activity, get it from client programmer|
 
 ### Device API
 
-|Device API|说明|
+|Device API|description|
 |---|---|
-|launch_app|拉起APP|
-|is_app_launched|判断app是否启动|
-|relaunch_app|重启app|
-|kill_app|杀死app进程|
-|get_screenshot|截屏（稍慢，adb自带）|
-|mini_screencap|截屏（性能很好，但是可能有兼容性问题）|
+|launch_app|Launch APP|
+|is_app_launched|Determine if the app is started|
+|relaunch_app|Relaunch app|
+|kill_app|Kill app process|
+|get_screenshot|Screenshot (slightly slower, adb‘s built-in capabilities)|
+|mini_screencap|Screenshot (good performance, but with possible compatibility issues)|
 
 ### Engine API
 The Unity engine-related APIs are placed in the engine.py module
 
 | Engine API | Description |
 | ------| ------ |
-| find_element | 通过物体的名称获取物体的实例 |
-| find_elements_path|返回包含符合特殊路径（表达式）的所有物体的列表|
-|find_elements_by_component|通过类型名称查找物体，返回列表|
-|get_element_bound|获取物体的边界信息|
-|get_element_text|返回一个物体上的TextView组件的文本|
-|get_element_image|返回一个物体上的Render组件中的纹理名称|
-|get_scene|获取当前场景的名称|
-|get_element_world_bound|获取物体在世界坐标下的边界信息|
-|click_position|按照坐标点击|
-|click|点击一个物体的中心位置|
-|press_position|按照坐标长安|
-|press|长按一个物体的中心位置|
-|swipe_position|按照坐标滑动|
-|swipe|从一个物体的中心位置滑动到另一个物体的中心位置|
-|swipe_and_press|模拟摇杆|
-|input|为一个物体中的TextView设置文本|
-|get_touchable_elements_bound|获取所有可点击的物体的边界信息|
-|get_registered_handlers|返回sdk中注册了的方法的名称|
-|call_registered_handler|调用一个sdk中注册的方法|
-|get_component_methods|获取一个组件的方法|
-|call_component_method|调用一个组件上的方法|
+| find_element | Gets an instance of an object by its fullpath |
+| find_elements_path|Returns a list of objects that correspond to a particular fullpath (expression)|
+|find_elements_by_component|Find the object by given type and return a list|
+|get_element_bound|Gets the boundary information of the object|
+|get_element_text|Returns the text of the TextView component on an object|
+|get_element_image|Returns the texture name in the Render component on an object|
+|get_scene|Gets the name of the current scene|
+|get_element_world_bound|Gets the boundary information of the object in world coordinates|
+|click_position|Click by coordinates|
+|click|Click on the center of an object|
+|press_position|Press by coordinate|
+|press|Press the center of an object|
+|swipe_position|Swipe by coordinates|
+|swipe|Slide from the center of one object to the center of another|
+|swipe_and_press|joystick simulation|
+|input|Set the text for a TextView in an object|
+|get_touchable_elements_bound|Gets the boundary information for all touchable objects|
+|get_registered_handlers|Returns the list of name of the methods registered in SDK|
+|call_registered_handler|Call a method registered in SDK|
+|get_component_methods|Gets a list of method in a component|
+|call_component_method|Gets a component's method to call a method on a component|
 
