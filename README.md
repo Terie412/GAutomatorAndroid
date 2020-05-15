@@ -1,30 +1,104 @@
 # GAutomatorAndroid
-[![Wetest](https://img.shields.io/badge/wetest-2.8.2-green.svg)](wetest.qq.com)  [![license](https://img.shields.io/badge/license-mit-red.svg)](https://github.com/Tencent/tinker/blob/master/LICENSE)
+[![0.1.2](https://img.shields.io/badge/version-v3.9.5-blue)](https://pypi.org/manage/project/gauto-android/releases/)
 
-GAutomator 的简化版本。保留了绝大部分的本地核心功能。删除了对python2的兼容。删除了对云平台的支持。
+GAutomator中Android部分的脚本的简化版本，删除了对云平台的支持，删除了对python2.7的兼容，修改了部分接口。
+
+### 下载安装
+
+```shell script
+pip install gauto-android
+```
 
 ### 最简单的使用
 
-脚本的入口是main.py，一个简单的启动例子如下（一般来说这个例子中展示的参数都是必需的）：
+```python
+import os
+import gauto.manager as manager
+
+device = manager.get_device()
+engine = manager.get_engine()
+logger = logging.getLogger("wetest") # 全局默认的logger名称都是wetest
+
+def init():
+    os.environ["FORWARD_LOCAL_PORT"] = "53001" # 本地端口，一台安卓设备分配一个
+    os.environ["ANDROID_SERIAL"] = "emulator-5554" # 安卓设备序列号
+    os.environ["PKGNAME"] = "com.tencent.sgame" # 游戏包名
+    os.environ["LAUNCHACTIVITY"] = "com.tencent.sgame.MainActivity" # 游戏主Activity
+
+def run():
+    logger.info("启动 app")
+    device.launch_app()
+    time.sleep(2)
+
+    logger.info("点击关闭按钮")
+    e = engine.find_element("/Canvas/Button.close")
+    engine.click(e)
+
+    logger.info("截图")
+    device.mini_screencap("./screenshot.png")
+
+    logger.info("杀死 app")
+    device.kill_app()
+
+run()
+```
+
+### 另一种启动方式——命令行传参
+
+```python
+import getopt
+import optparse
+import os
+import gauto.manager as manager
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+logger = manager.logger
+
+def run():
+    # dosomething...
+    pass
+
+def main():
+    usage = "usage:%prog [options] --qqname= --qqpwd= --engineport= --uiport= --serial="
+    parser = optparse.OptionParser(usage)
+    parser.add_option("-w", "--localport", dest="FORWARD_LOCAL_PORT", help="forward local port")
+    parser.add_option("-s", "--serial", dest="ANDROID_SERIAL", help="adb devices android mobile serial")
+    parser.add_option("-k", "--package", dest="PKGNAME", help="upload password")
+    parser.add_option("-j", "--mainactivity", dest="LAUNCHACTIVITY", help="upload password")
+    (options, args) = parser.parse_args()
+    try:
+        if options.FORWARD_LOCAL_PORT:
+            os.environ["FORWARD_LOCAL_PORT"] = options.FORWARD_LOCAL_PORT
+        if options.ANDROID_SERIAL:
+            os.environ["ANDROID_SERIAL"] = options.ANDROID_SERIAL
+        if options.PKGNAME:
+            os.environ["PKGNAME"] = options.PKGNAME
+        if options.LAUNCHACTIVITY:
+            os.environ["LAUNCHACTIVITY"] = options.LAUNCHACTIVITY
+
+    except getopt.error as msg:
+        logger.info("for help use --help")
+        return 2
+
+    run()
+
+if __name__ == "__main__":
+    sys.exit(main())
+
+```
+
+在上面的入口脚本中，你的逻辑可以写在`run()`里面，在此之前，脚本从启动参数列表中读取参数初始化一些环境变量。原因很简单，因为modules中使用到了一些全局的环境变量，如果你不设置所必需的全局变量，就会可能会出错。然后用以下命令启动：
 ```shell script
-python main.py --serial=emular-5554 --localport=53001 --sample=test_engine --package=com.tencent.sgame --mainactivity=com.tencent.sgame.MainActivity
+python main.py --serial=emular-5554 --localport=53001 --package=com.tencent.sgame --mainactivity=com.tencent.sgame.MainActivity
 ```
 脚本的参数说明如下：
 
 |参数|参数缩写|说明|
 |------|------|------|
-|--qqname|-q|登录游戏的时候的QQ账户|
-|--qqpwd|-p|登录游戏的时候的QQ密码|
-|--wechataccount|-b|登录游戏的时候的微信账户|
-|--wechatpwd|-c|登录游戏的时候的微信密码|
 |--localport|-e|建立adb forward转发时的本地端口|
 |--serial|-s|设备序列号|
-|--sample|-m|要运行的测试用例|
 |--package|-k|游戏的包名|
 |--mainactivity|-j|游戏的主Activity，可以问客户端程序拿到|
-
-
-测试用例的根脚本写在test_sample目录下，--sample后面跟测试用例的名称即可，他会启动测试用例中的`start()`方法。
 
 ### Device API
 
@@ -35,11 +109,10 @@ python main.py --serial=emular-5554 --localport=53001 --sample=test_engine --pac
 |relaunch_app|重启app|
 |kill_app|杀死app进程|
 |get_screenshot|截屏（稍慢，adb自带）|
-|mini_screencap|截屏（很快，minicap的功能，可能有兼容性问题）|
+|mini_screencap|截屏（性能很好，但是可能有兼容性问题）|
 
 ### Engine API
 The Unity engine-related APIs are placed in the engine.py module
-
 
 | Engine API | Description |
 | ------| ------ |
@@ -65,27 +138,3 @@ The Unity engine-related APIs are placed in the engine.py module
 |get_component_methods|获取一个组件的方法|
 |call_component_method|调用一个组件上的方法|
 
-### 一个简单的测试用例的例子
-```python
-import logging,traceback, random, re, time, os
-from gauto import manager
-
-device = manager.get_device()
-engine = manager.get_engine()
-logger = logging.getLogger("wetest") # 全局默认的logger名称都是wetest
-
-def start():
-    logger.info("启动 app")
-    device.launch_app()
-    time.sleep(2)
-
-    logger.info("点击关闭按钮")
-    e = engine.find_element("/Canvas/Button.close")
-    engine.click(e)
-
-    logger.info("截图")
-    device.mini_screencap("./screenshot.png")
-
-    logger.info("杀死 app")
-    device.kill_app()
-```
