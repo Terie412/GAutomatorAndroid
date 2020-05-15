@@ -1,6 +1,6 @@
 # GAutomatorAndroid
 ![PyPI - Downloads](https://img.shields.io/badge/qintianchen-gauto--android-orange)
-[![0.1.2](https://img.shields.io/badge/version-v3.9.5-blue)](https://pypi.org/manage/project/gauto-android/releases/) 
+[![0.1.4](https://img.shields.io/badge/version-v0.1.4-blue)](https://pypi.org/manage/project/gauto-android/releases/) 
 
 [中文文档](./README_cn.md)
 
