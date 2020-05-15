@@ -102,7 +102,7 @@ example:sample/sample.py, demo game apk:sample/wetest_demo.apk
 #import sys,os
 #sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..\\")))
 
-import wpyscripts.manager as manager
+import gauto.manager as manager
 
 def test():
     engine=manager.get_engine()
@@ -132,7 +132,7 @@ python sample.py
 ## 2.2 Example Detail
 The wpyscripts.manager module provides all the functionality needed for automated testing, providing content related to engine, device, report.
 ```python
-import wpyscripts.manager as manager
+import gauto.manager as manager
 ```
 next,create engine and logger instance.
 ```python
@@ -272,7 +272,7 @@ GAutomator has three way to find the GameObject。Example：sample/find_elements
 #import sys,os,time
 #sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..\\")))
 
-import wpyscripts.manager as manager
+import gauto.manager as manager
 def test_find_element():
     button=engine.find_element("/Canvas/Panel/Button")
     bound=engine.get_element_bound(button)
@@ -816,7 +816,7 @@ import sys, os, time
 
 #sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..\\")))
 
-import wpyscripts.manager as manager
+import gauto.manager as manager
 
 engine = manager.get_engine()
 logger = manager.get_logger()

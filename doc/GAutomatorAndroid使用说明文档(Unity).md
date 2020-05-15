@@ -122,7 +122,7 @@ GAutomatorView工具可在http://wetest.qq.com/cloud/index.php/phone/blrooike下
 #import sys,os
 #sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..\\")))
 
-import wpyscripts.manager as manager
+import gauto.manager as manager
 
 def test():
     engine=manager.get_engine()
@@ -152,7 +152,7 @@ python samle.py
 ## 2.2 实例详解
 wpyscripts.manager模块提供了自动化测试所需的所有功能，提供与引擎、手机、报告相关的内容，也提供了日志实现
 ```python
-import wpyscripts.manager as manager
+import gauto.manager as manager
 ```
 下一步，创建Engine和日志实例
 ```python
@@ -302,7 +302,7 @@ engine模块提供了三种GameObject的查找方式。示例：sample/Unity/fin
 #import sys,os,time
 #sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..\\")))
 
-import wpyscripts.manager as manager
+import gauto.manager as manager
 def test_find_element():
     button=engine.find_element("/Canvas/Panel/Button")
     bound=engine.get_element_bound(button)
@@ -839,7 +839,7 @@ import sys, os, time
 
 #sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..\\")))
 
-import wpyscripts.manager as manager
+import gauto.manager as manager
 
 engine = manager.get_engine()
 logger = manager.get_logger()

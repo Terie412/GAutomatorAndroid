@@ -11,25 +11,25 @@
 
 from setuptools import setup, find_packages
 
-setup(
-    name="GAutomatorAndroid",
-    version="0.1.0",
-    keywords=("pip", "pathtool", "timetool", "magetool", "mage"),
-    description="A tool for android automation",
-    long_description="time and path tool",
-    license="MIT Licence",
+with open("README.md", "r", encoding="utf-8") as fp:
+    long_description = fp.read()
 
-    url="https://github.com/qintianchen/GAutomator/tree/master/GAutomatorAndroid",
+setup(
+    name="gauto",
+    version="0.1.2",
     author="qintianchen",
     author_email="1365265750@qq.com",
-
+    description="A tool for game automation on android platform",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    license="MIT Licence",
+    url="https://github.com/qintianchen/GAutomatorAndroid",
     packages=find_packages(),
-    include_package_data=True,
-    platforms="any",
     install_requires=[
         "numpy>=1.18.3",
         "opencv-python>=4.2.0.34",
         "xlrd>=1.2.0",
         "xlwt>=1.3.0",
-    ]
+    ],
+    python_requires='>=3.6',
 )

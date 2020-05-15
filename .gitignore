@@ -1,6 +1,10 @@
 _wetest_testcase_result.txt
 .idea
 runTest.sh
+build
+dist
+setup.py
+*.egg-info
 *.cache
 *.pytest_cache
 *__pycache__
